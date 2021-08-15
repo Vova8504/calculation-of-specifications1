@@ -73,6 +73,26 @@ namespace BLOK.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap авто_разрыв2 {
+            get {
+                object obj = ResourceManager.GetObject("авто разрыв2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Высота_лестницы {
+            get {
+                object obj = ResourceManager.GetObject("Высота лестницы", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap настройки_поз {
             get {
                 object obj = ResourceManager.GetObject("настройки поз", resourceCulture);

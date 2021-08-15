@@ -476,7 +476,7 @@ namespace BLOK
                     if (stKEI == "006" & stHtoEto == "Лес") { tPOZ.NKol(dDlin); }
                     if (stKEI == "006" & stHtoEto == "тр") { tPOZ.NKol(dDlin); }
                     if (stKEI == "796") { tPOZ.NKol(1); }
-                    if ((stKomp == "") == false) { DOBOVLpoz(ref SpPOZ, tPOZ, Tnm); }
+                    if ((stKomp == "") == false & stHtoEto!="Метка") { DOBOVLpoz(ref SpPOZ, tPOZ, Tnm); }
                 }
                 Tx.Commit();
             }
@@ -744,14 +744,14 @@ namespace BLOK
                         foreach (TypedValue value in buffer)
                         {
                             if (Schet == 1) { stKomp = value.Value.ToString(); }
-                            if (Schet == 2) { dVisot = Convert.ToDouble(value.Value.ToString()); }
+                            if (Schet == 2) {if( Double.TryParse(value.Value.ToString(),out dVisot)) dVisot = Convert.ToDouble(value.Value.ToString()); }
                             if (Schet == 3) { stDobav = value.Value.ToString(); }
                             if (Schet == 4) { stPom = value.Value.ToString(); }
                             if (Schet == 5) { stRazd = value.Value.ToString(); }
                             if (Schet == 6) { stKEI = value.Value.ToString(); }
                             if (Schet == 7) { stHtoEto = value.Value.ToString(); }
                             if (Schet == 8) { stHOZ = value.Value.ToString(); }
-                            if (Schet == 9) { dDlin = Convert.ToDouble(value.Value.ToString()); }
+                            if (Schet == 9) { if (Double.TryParse(value.Value.ToString(), out dDlin)) dDlin = Convert.ToDouble(value.Value.ToString()); }
                             if (Schet == 10) { RAB = value.Value.ToString(); }
                             if (Schet == 11) { LINK = value.Value.ToString(); }
                             if (Schet == 12) { ID = value.Value.ToString(); }

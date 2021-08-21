@@ -44,6 +44,7 @@ namespace BLOK
         string sLINK = "";
         string dDlin = "";
         string dVisot = "";
+        string gab = "";
 
         double IDles = 0;
 
@@ -113,7 +114,16 @@ namespace BLOK
                 ZazorVir = zazorVir;
                 Zazor = zazor;
             }
-
+            public void GlDatStr(string pram, string gib, string pramGib, string kVisot, string zazorVir, string zazor)
+            {
+                double Def = 0;
+                if (double.TryParse(pram,out  Def)) Pram = Convert.ToDouble(pram);else Pram = 0;
+                if (double.TryParse(gib, out  Def)) Gib = Convert.ToDouble( gib); else Gib = 0;
+                if (double.TryParse(pramGib, out  Def)) PramGib = Convert.ToDouble( pramGib); else PramGib = 0;
+                if (double.TryParse(kVisot, out  Def)) KVisot = Convert.ToDouble( kVisot); else KVisot = 0;
+                if (double.TryParse(zazorVir, out  Def)) ZazorVir = Convert.ToDouble( zazorVir); else ZazorVir = 0;
+                if (double.TryParse(zazor, out  Def)) Zazor = Convert.ToDouble(zazor); else Zazor = 0;
+            }
         }
         public struct Part
         {
@@ -233,19 +243,19 @@ namespace BLOK
                     {
                         foreach (TypedValue value in buffer)
                         {
-                            if (Schet == 1) { stKomp = value.Value.ToString(); }
-                            if (Schet == 2) { dVisot = value.Value.ToString(); }
-                            if (Schet == 4) { stPom = value.Value.ToString(); }
-                            if (Schet == 5) { stRazd = value.Value.ToString(); }
-                            if (Schet == 6) { stKEI = value.Value.ToString(); }
-                            if (Schet == 7) { stHtoEto = value.Value.ToString(); }
-                            if (Schet == 8) { stHOZ = value.Value.ToString(); }
-                            if (Schet == 9) { dDlin = value.Value.ToString(); }
+                            if (Schet == 1) { stKomp = value.Value.ToString(); }//Препядствие
+                            if (Schet == 2) { dVisot = value.Value.ToString(); }//"Высота препядствия:";
+                            if (Schet == 3) { gab = value.Value.ToString(); }//"Зазор:";
+                            if (Schet == 4) { stPom = value.Value.ToString(); }//"Можно разать:";
+                            if (Schet == 5) { stRazd = value.Value.ToString(); }//"Прямой участок:";
+                            if (Schet == 6) { stKEI = value.Value.ToString(); }//"Длина гиба:";
+                            if (Schet == 7) { stHtoEto = value.Value.ToString(); }//"Коэфициент высоты:";
+                            if (Schet == 8) { stHOZ = value.Value.ToString(); }//"Зазор для обхода:";
+                            if (Schet == 9) { dDlin = value.Value.ToString(); }//Зазор для выреза:;
                             if (Schet == 10) { stRab = value.Value.ToString(); }
                             if (Schet == 11) { sLINK = value.Value.ToString(); }
                             Schet = Schet + 1;
                         }
-                        ////Application.ShowAlertDialog(strDan);
                     }
                     if (ent.GetType() == typeof(Polyline))
                     {
@@ -266,19 +276,66 @@ namespace BLOK
                 {
                     tr.Abort();
                 }
-                //Form4 form1 = new Form4();
-                //form1.Show();
-                this.label3.Text = HANDL;
-                this.label7.Text = dDlin.ToString();
-                this.textBox3.Text = stRab;
-                this.label14.Text = stKomp;
-                this.textBox2.Text = dVisot.ToString();
-                this.textBox4.Text = stPom;
-                this.textBox5.Text = stRazd;
-                this.textBox6.Text = stKEI;
-                this.textBox7.Text = stHtoEto;
-                this.textBox8.Text = stHOZ;
-                this.textBox9.Text = sLINK;
+                    if (stKomp == "Препядствие") 
+                    { 
+                    this.tabControl1.Visible = false;
+                    this.Width = 360;
+                    this.Height = 550;
+                    this.label4.Text = "Высота препядствия:";
+                    this.label6.Text = "Можно резать:";
+                    this.label9.Text = "Прямой участок:";
+                    this.label10.Text = "Длина гиба:";
+                    this.label11.Text = "Коэфициент высоты:";
+                    this.label12.Text = "Зазор для обхода:";
+                    this.label13.Text = "Зазор для выреза:";
+                    this.label21.Visible = false;
+                    this.label22.Visible = false;
+                    this.label23.Visible = false;
+                    this.label24.Visible = false;
+                    this.label25.Visible = false;
+                    this.label26.Visible = false;
+                    this.label1.Visible = false;
+                    this.label2.Visible = false;
+                    this.label5.Visible = false;
+                    this.label8.Visible = false;
+                    this.label18.Visible = false;
+                    this.label17.Visible = false;
+                    this.label3.Visible = false;
+                    this.label7.Visible = false;
+                    this.label14.Visible = false;
+                    //reneme
+                    this.textBox2.Text = dVisot.ToString();
+                    this.textBox4.Text = stPom;
+                    this.textBox5.Text = stRazd;
+                    this.textBox6.Text = stKEI;
+                    this.textBox7.Text = stHtoEto;
+                    this.textBox8.Text = stHOZ;
+                    this.textBox9.Text = dDlin;
+                    this.textBox11.Visible = false;
+                    this.textBox12.Visible = false;
+                    this.textBox13.Visible = false;
+                    this.textBox14.Visible = false;
+                    this.textBox15.Visible = false;
+                    this.textBox16.Visible = false;
+                    this.textBox3.Visible = false;
+                    this.button7.Visible = false;
+                    this.button1.Location= new Point(11,400) ;
+                    this.button1.Text="Изменить" ;
+                }
+                else
+                    {
+                    this.label3.Text = HANDL;
+                    this.label7.Text = dDlin.ToString();
+                    this.textBox3.Text = stRab;
+                    this.label14.Text = stKomp;
+                    this.textBox2.Text = dVisot.ToString();
+                    this.textBox4.Text = stPom;
+                    this.textBox5.Text = stRazd;
+                    this.textBox6.Text = stKEI;
+                    this.textBox7.Text = stHtoEto;
+                    this.textBox8.Text = stHOZ;
+                    this.textBox9.Text = sLINK;
+                    }
             }
             ADDLes("#ЛестУсил200", 208, "Лес", "", "", "40*40*4#Уголок40х40х4#00311742137", "", "", 1200, 0, ref SpLESTN);
             ADDLes("#ЛестУсил300", 308, "Лес", "", "", "40*40*4#Уголок40х40х4#00311742137", "", "", 1200, 0, ref SpLESTN);
@@ -1016,16 +1073,18 @@ namespace BLOK
             string connection = this.textBox16.Text;
             string LINK = this.textBox9.Text;
             string Room = this.textBox4.Text;
+            bool GlSettingObks = this.checkBox4.Checked;
             List<ObjectId> SpOBJID = new List<ObjectId>();
             Document doc = Application.DocumentManager.MdiActiveDocument;
             using (DocumentLock docLock = doc.LockDocument())
             {
                 SpPoint1.Clear();
                 SBORBl_FIND(ref SpPoint1, Find, ref SpOBJID, ref SpPoint_poln, ref SpPREP);
+                foreach (Prepad TP in SpPREP) { this.dataGridView3.Rows.Add(TP.Tip,TP.KVisot, TP.Pram, TP.Gib, TP.Zazor, TP.ZazorVir); }
                 Lestn CWEYGlob = new Lestn();
                 CWEYGlob.ADDAtr(Component, chapter_Sp, Find, LINK, connection, shank, Room, ID_CWEY, Steep_Shank);
                 CWEYGlob.ADDSp(SpPoint1, SpPoint_poln);
-                apply_obstacles(SpPREP, SpLESTN, CWEYGlob, GlObcl,checkBox1.Checked,ID);
+                apply_obstacles(SpPREP, SpLESTN, CWEYGlob, GlObcl,checkBox1.Checked,ID, GlSettingObks);
             }
         }//Применить препядствия
         private void button14_Click(object sender, EventArgs e)
@@ -1075,6 +1134,7 @@ namespace BLOK
         }//добовление точки в список 
         public static void Lest_N_INtr_SP(List<TPosrL> SpPointVH, string Tipor, double Hsirin, string Zagal, string Povorot, string Xvost, string Soed, string Adr, double Otstup, double HSag_Hvost, double ID_Les, ref double ID, bool StrTosh,string Room,bool RekXv)
         {
+            if (Xvost == "") { Application.ShowAlertDialog("Пустое поле с хвостовиками"); return; }
             Document doc = Application.DocumentManager.MdiActiveDocument;
             Database db = doc.Database;
             using (DocumentLock docLock = doc.LockDocument())
@@ -1165,6 +1225,7 @@ namespace BLOK
         }//не интерактивный способ построения лестниц
         public void TRub_N_INtr_SP(List<TPosrL> SpPointVH, string Tipor, double Hsirin, string Zagal, string Povorot, string Xvost, string Soed, string Adr, double Otstup, double HSag_Hvost, string DobavSoed, string DobavKr, double HSag_Kr, double ID_Les, ref double ID, bool StrTosh, bool RekXv)
         {
+            if (Xvost == "") { Application.ShowAlertDialog("Пустое поле с хвостовиками"); return; }
             Document doc = Application.DocumentManager.MdiActiveDocument;
             Database db = doc.Database;
             using (DocumentLock docLock = doc.LockDocument())
@@ -1710,8 +1771,15 @@ namespace BLOK
         static public void SBORBl_FIND(ref List<TPosrL> SpOBJID, string FIND_N,ref List<ObjectId> SpID, ref List<TPosrL> SpOBJID_Poln, ref List<Prepad> SpPREP)
         {
             int Schet = 0;
+            double NomT = 0;
             string stKomp = "";
             string stRez = "";
+            string gap = "";
+            string straight_section = "";
+            string bend_length = "";
+            string height_coefficient = "";
+            string bypass_clearance = "";
+            string gap_cutouts = "";
             string stRad = "";
             string stHtoEto = "";
             string LINK = "";
@@ -1721,7 +1789,6 @@ namespace BLOK
             string stDobav = "";
             string dVisot = "";
             Point3d PointPostr = new Point3d();
-            double NomT = 0;
             Document doc = Application.DocumentManager.MdiActiveDocument;
             Database db = doc.Database;
             Editor ed = doc.Editor;
@@ -1754,6 +1821,12 @@ namespace BLOK
                 {
                     stKomp = "";
                     stRez = "";
+                    gap = "";
+                    straight_section = "";
+                    bend_length = "";
+                    height_coefficient = "";
+                    bypass_clearance = "";
+                    gap_cutouts = "";
                     stRad = "";
                     stHtoEto = "";
                     stPOLnNaim = "";
@@ -1905,8 +1978,13 @@ namespace BLOK
                             {
                                 if (Schet == 1) { stKomp = value.Value.ToString(); }
                                 if (Schet == 2) { dVisot = value.Value.ToString(); }
+                                if (Schet == 3) { gap = value.Value.ToString(); }
                                 if (Schet == 4) { stRez = value.Value.ToString(); }
-                                if (Schet == 5) { stRad = value.Value.ToString(); }
+                                if (Schet == 5) { straight_section = value.Value.ToString(); }
+                                if (Schet == 6) { bend_length = value.Value.ToString(); }
+                                if (Schet == 7) { height_coefficient = value.Value.ToString(); }
+                                if (Schet == 8) { bypass_clearance = value.Value.ToString(); }
+                                if (Schet == 9) { gap_cutouts = value.Value.ToString(); }
                                 if (Schet == 11) { LINK = value.Value.ToString(); }
                                 Schet = Schet + 1;
                             }
@@ -1927,12 +2005,14 @@ namespace BLOK
                         }
                         if (stKomp == "Препядствие") 
                         {
+                            //Application.ShowAlertDialog(gap + "- gap");
                             Prepad NPerep = new Prepad();
                             NPerep.NTip(stRez);
-                            NPerep.NRad(Convert.ToDouble(stRad));
+                            //NPerep.NRad(Convert.ToDouble(stRad));
                             NPerep.NVisot(Convert.ToDouble(dVisot));
                             NPerep.NT1(bref.StartPoint);
                             NPerep.NT2(bref.EndPoint);
+                            NPerep.GlDatStr(straight_section, bend_length, straight_section, height_coefficient, gap_cutouts, gap);
                             SpPREP.Add(NPerep);
                         }
                     }
@@ -3748,7 +3828,7 @@ namespace BLOK
                 }
             }
         }
-        public static void apply_obstacles( List<Prepad> SpPREP,  List<Lestn> SpLESTN, Lestn GlCWEY, Prepad GlObc,bool RekXv,ObjectId IDthis)
+        public static void apply_obstacles( List<Prepad> SpPREP,  List<Lestn> SpLESTN, Lestn GlCWEY, Prepad GlObc,bool RekXv,ObjectId IDthis, bool GlSettingObks)
         {
             double Zazor = GlObc.Zazor;
             double Pram = GlObc.Pram;
@@ -3800,6 +3880,7 @@ namespace BLOK
                         TPre.NTp(TTper);
                         TPre.NVisot(TP.Visot);
                         TPre.NRad(TP.Rad);
+                        TPre.GlDat(TP.Pram, TP.Gib, TP.PramGib, TP.KVisot, TP.ZazorVir, TP.Zazor);
                         SpPREP_VZ.Add(TPre);
                     }
                 }
@@ -3827,14 +3908,36 @@ namespace BLOK
                 T2.NVisot(Tpr.Visot.ToString());
                 T2.NTPoint(Tpr.Tp);
                 TSpT.Add(T2);
-                if (KVisot != 0)
+                //Visot = Math.Round(Tpr.Visot - (Tpr.Visot * KVisot) - ZazorVir)+40;
+                    if (SpSpPoint.Count > 0) 
+                    {
+                    if (GlSettingObks)
+                    {
+                        Prepad FTpr = SpPREP_Razr.Find(x => x.Param == par1);
+                        Zazor = FTpr.Zazor / 2;
+                        Pram = FTpr.Pram;
+                        Gib = FTpr.Gib;
+                        PramGib = FTpr.PramGib;
+                        KVisot = FTpr.KVisot;
+                        ZazorVir = FTpr.ZazorVir;
+                        //Application.ShowAlertDialog(par2 + " " + Zazor + " " + Pram + " " + Gib + " " + PramGib);
+                    }
+                    Visot = Math.Round(Tpr.Visot - (Tpr.Visot * KVisot) - ZazorVir) + 40;
+                    MestnGib(ref TSpT, Pram, Gib, TSpT[0].NomT, Visot, true, ref SpPoint1, Zazor * 2); 
+                    }
+                if (GlSettingObks) 
                 {
-                    Visot = Math.Round(Tpr.Visot - (Tpr.Visot * KVisot) - ZazorVir);
-                    if (SpSpPoint.Count > 0) { MestnGib(ref TSpT, Pram, Gib, TSpT[0].NomT, Visot, true, ref SpPoint1, Zazor * 2); }
-                    MestnGib(ref TSpT, Pram, Gib, TSpT.Last().NomT, Visot, false, ref SpPoint1, Zazor);
+                     Prepad FTpr = SpPREP_Razr.Find(x=>x.Param == par2);
+                     Zazor = FTpr.Zazor/2;
+                     Pram = FTpr.Pram;
+                     Gib = FTpr.Gib;
+                     PramGib = FTpr.PramGib;
+                     KVisot = FTpr.KVisot;
+                     ZazorVir = FTpr.ZazorVir;
+                    //Application.ShowAlertDialog(par2 + " " + Zazor + " " + Pram + " " + Gib + " " + PramGib);
                 }
-                else
-                    MestnGib(ref TSpT, 0, 0, TSpT.Last().NomT, Visot, false, ref SpPoint1, Zazor);
+                Visot = Math.Round(Tpr.Visot - (Tpr.Visot * KVisot) - ZazorVir) + 40;
+                MestnGib(ref TSpT, Pram, Gib, TSpT.Last().NomT, Visot, false, ref SpPoint1, Zazor);
                 SpSpPoint.Add(TSpT);
                 par1 = par2;
             }

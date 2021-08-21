@@ -762,16 +762,16 @@ namespace BLOK
         private void button28_Click(object sender, EventArgs e)
         {
             string BlokType = "DB";
-            string Catal = this.textBox14.Text;
+            string Dir = this.textBox14.Text;
             //string BlocCatal =Path.GetDirectoryName(@Catal);
-            Blok = "ПлоскостьПостр";
+            Blok = "Плоскость_пр";
             //Application.ShowAlertDialog();
             this.Hide();
             Document doc = Application.DocumentManager.MdiActiveDocument;
             using (DocumentLock docLock = doc.LockDocument())
             {
                 //Application.ShowAlertDialog(@Catal);
-                InsBlockRef(@Catal, Blok, BlokType);
+                InsBlockRef($"{@Dir}Плоскость_пр.dwg", Blok, BlokType);
                 SetDynamicBlkProperty(Blok, "", "", "", "", "", "", "", 0, "", "", 0, "Плоскости");
             }
             this.Show();
@@ -1802,7 +1802,9 @@ namespace BLOK
                         new TypedValue(1000, Rez),
                         new TypedValue(1000, this.textBox30.Text),
                         new TypedValue(1000, this.textBox31.Text),
-                        new TypedValue(1000, this.textBox32.Text)
+                        new TypedValue(1000, this.textBox32.Text),
+                        new TypedValue(1000, this.textBox33.Text),
+                        new TypedValue(1000, this.textBox34.Text)
                         );
                     acBlkTblRec.AppendEntity(acLine);
                     Tx.AddNewlyCreatedDBObject(acLine, true);
@@ -2453,6 +2455,7 @@ namespace BLOK
         }//Блок из файла
         public void InsBlockRef(string BlockPath, string BlockName, string BlockType)
         {
+            Application.ShowAlertDialog(BlockPath);
             // Активный документ в редакторе AutoCAD
             Document doc = Application.DocumentManager.MdiActiveDocument;
             // База данных чертежа (в данном случае - активного документа)
@@ -6398,132 +6401,135 @@ namespace BLOK
             int Schet;
             Document doc = Application.DocumentManager.MdiActiveDocument;
             Database db = doc.Database;
-            Editor ed = doc.Editor;
-            TypedValue[] acTypValAr = new TypedValue[5];
-            acTypValAr.SetValue(new TypedValue(0, "TEXT"), 0);
-            acTypValAr.SetValue(new TypedValue(-4, "<or"), 1);
-            acTypValAr.SetValue(new TypedValue(8, "Насыщение"), 2);
-            acTypValAr.SetValue(new TypedValue(8, "НасыщениеСкрытые"), 3);
-            acTypValAr.SetValue(new TypedValue(-4, "or>"), 4);
-            // создаем фильтр
-            SelectionFilter acSelFtr = new SelectionFilter(acTypValAr);
-            PromptSelectionResult acSSPrompt = ed.SelectAll(acSelFtr);
-            if (acSSPrompt.Status != PromptStatus.OK)
+            using (DocumentLock docLock = doc.LockDocument())
             {
-                ed.WriteMessage("Нет деталей...");
-                return;
-            }
-            SelectionSet acSSet = acSSPrompt.Value;
-            ObjectId[] ids = acSSet.GetObjectIds();
-            using (Transaction Tx = db.TransactionManager.StartTransaction())
-            {
-#endregion
-#region чтение тасширеных данных текстового примитива
-                foreach (ObjectId ID in ids)
+                Editor ed = doc.Editor;
+                TypedValue[] acTypValAr = new TypedValue[5];
+                acTypValAr.SetValue(new TypedValue(0, "TEXT"), 0);
+                acTypValAr.SetValue(new TypedValue(-4, "<or"), 1);
+                acTypValAr.SetValue(new TypedValue(8, "Насыщение"), 2);
+                acTypValAr.SetValue(new TypedValue(8, "НасыщениеСкрытые"), 3);
+                acTypValAr.SetValue(new TypedValue(-4, "or>"), 4);
+                // создаем фильтр
+                SelectionFilter acSelFtr = new SelectionFilter(acTypValAr);
+                PromptSelectionResult acSSPrompt = ed.SelectAll(acSelFtr);
+                if (acSSPrompt.Status != PromptStatus.OK)
                 {
-                    stKomp = "";
-                    stTIP = "";
-                    stLINK = "";
-                    pomUDAL = "";
-                    stKompUDAL = "";
-                    //DBText bref = Tx.GetObject(acSSObj.ObjectId, OpenMode.ForRead) as DBText;
-                    DBText bref = (DBText)Tx.GetObject(ID, OpenMode.ForWrite);
-                    bref.UpgradeOpen();
-                    ResultBuffer buffer = bref.GetXDataForApplication("LAUNCH01");
-                    if (buffer != null)
+                    ed.WriteMessage("Нет деталей...");
+                    return;
+                }
+                SelectionSet acSSet = acSSPrompt.Value;
+                ObjectId[] ids = acSSet.GetObjectIds();
+                using (Transaction Tx = db.TransactionManager.StartTransaction())
+                {
+                    #endregion
+                    #region чтение тасширеных данных текстового примитива
+                    foreach (ObjectId ID in ids)
                     {
-                        Schet = 0;
-                        foreach (TypedValue value in buffer)
+                        stKomp = "";
+                        stTIP = "";
+                        stLINK = "";
+                        pomUDAL = "";
+                        stKompUDAL = "";
+                        //DBText bref = Tx.GetObject(acSSObj.ObjectId, OpenMode.ForRead) as DBText;
+                        DBText bref = (DBText)Tx.GetObject(ID, OpenMode.ForWrite);
+                        bref.UpgradeOpen();
+                        ResultBuffer buffer = bref.GetXDataForApplication("LAUNCH01");
+                        if (buffer != null)
                         {
-                            if (Schet == 1) { stKomp = value.Value.ToString(); }
-                            if (Schet == 3) { stTIP = value.Value.ToString(); }
-                            if (Schet == 4) { stLINK = value.Value.ToString(); pomUDAL = value.Value.ToString(); }
-                            if (Schet == 5) { stKompUDAL = value.Value.ToString(); }
-                            Schet = Schet + 1;
-                        }
-#endregion
-#region если в расширеных данных текстового примитива записан компонент и номер помещения
-                        string[] stKompM = stKomp.Split('_');
-                        if (stKompM.Length > 1)
-                        {
-                            string[] stKompM1 = stKompM[0].Split('#');
-                            if (stKompM1.Length > 1)
-                                if (stKompM.Length > 1) stKomp = "#" + stKompM1[1].Replace('@', '.') + "_" + stKompM[1];
-                                else
-                                    if (stKompM.Length > 1) stKomp = stKomp.Replace('@', '.') + "_" + stKompM[1];
-                            //Application.ShowAlertDialog(stKomp);
-                            //stKomp = stKompM1.Last().Replace('@', '.');                  
-                            //if (SpPOZ.Exists(x => (x.Compon == stKomp || "#" + x.Compon == stKomp) & x.Pom == stKompM[1]) == true & stTIP != "T_NAD_POL" & stTIP != "T_POD_POL")
-                            //if (SpPOZ.Exists(x => x.Compon + "_" + x.Pom == stKomp | "#" + x.Compon + "_" + x.Pom == stKomp) == true & stTIP != "T_NAD_POL" & stTIP != "T_POD_POL")
-                            //if (SpPOZ.Exists(x => stKomp.Contains(x.Compon + "_" + x.Pom)) == true & stTIP != "T_NAD_POL" & stTIP != "T_POD_POL")
-                            if (SpPOZ.Exists(x => stKomp == ("#" + x.Compon + "_" + x.Pom)) == true & stTIP != "T_NAD_POL" & stTIP != "T_POD_POL")
+                            Schet = 0;
+                            foreach (TypedValue value in buffer)
                             {
-                                //Application.ShowAlertDialog("#" + SpPOZ.Find(x => (x.Compon + "_" + x.Pom == stKomp | "#" + x.Compon + "_" + x.Pom == stKomp)).Compon + "_" + SpPOZ.Find(x => (x.Compon + "_" + x.Pom == stKomp | "#" + x.Compon + "_" + x.Pom == stKomp)).Pom);
-                                bref.TextString = SpPOZ.Find(x => stKomp == ("#" + x.Compon + "_" + x.Pom)).NOMpoz;
-                                //bref.TextString = SpPOZ.Find(x => (x.Compon == stKomp || "#" + x.Compon == stKomp) & x.Pom == stKompM[1]).NOMpoz;
+                                if (Schet == 1) { stKomp = value.Value.ToString(); }
+                                if (Schet == 3) { stTIP = value.Value.ToString(); }
+                                if (Schet == 4) { stLINK = value.Value.ToString(); pomUDAL = value.Value.ToString(); }
+                                if (Schet == 5) { stKompUDAL = value.Value.ToString(); }
+                                Schet = Schet + 1;
                             }
-                        }
-#endregion
-#region если в расширеных данных текстового примитива записана ссылка на блок и этот текстовый примитив является позицией
-                        else
-                        {
-
-                            if (stTIP == "POZIZIA")
+                            #endregion
+                            #region если в расширеных данных текстового примитива записан компонент и номер помещения
+                            string[] stKompM = stKomp.Split('_');
+                            if (stKompM.Length > 1)
                             {
-                                string Handl = stKomp;
-                                BLOKPoHandl(Handl, ref stKomp, ref pom, ref stDlina, ref stVisot, ref stVirez, ref stKEI, ref stHtoEto, pomUDAL, stKompUDAL);
-                                if (SpPOZ.Exists(x => x.Compon == stKomp & x.Pom == pom) == true) { bref.TextString = SpPOZ.Find(x => x.Compon == stKomp & x.Pom == pom).NOMpoz; }
-                                if (SpPOZob.Exists(x => x.Ind == stKomp) == true) { bref.TextString = SpPOZob.Find(x => x.Ind == stKomp).NOMpoz; }
-                            }
-#endregion
-#region если в расширеных данных текстового примитива записана ссылка на блок и этот текстовый примитив является текстом над полкой
-                            if (stTIP == "T_NAD_POL" && stKomp != "")
-                            {
-                                string Handl = stKomp;
-                                //if (stLINK != "") { Handl = stLINK; }
-                                //Application.ShowAlertDialog(stTIP + " " + Handl);
-                                BLOKPoHandl(Handl, ref stKomp, ref pom, ref stDlina, ref stVisot, ref stVirez, ref stKEI, ref stHtoEto, pomUDAL, stKompUDAL);
-                                if (SpPOZ.Exists(x => x.Compon == stKomp & x.Pom == pom) == true)
+                                string[] stKompM1 = stKompM[0].Split('#');
+                                if (stKompM1.Length > 1)
+                                    if (stKompM.Length > 1) stKomp = "#" + stKompM1[1].Replace('@', '.') + "_" + stKompM[1];
+                                    else
+                                        if (stKompM.Length > 1) stKomp = stKomp.Replace('@', '.') + "_" + stKompM[1];
+                                //Application.ShowAlertDialog(stKomp);
+                                //stKomp = stKompM1.Last().Replace('@', '.');                  
+                                //if (SpPOZ.Exists(x => (x.Compon == stKomp || "#" + x.Compon == stKomp) & x.Pom == stKompM[1]) == true & stTIP != "T_NAD_POL" & stTIP != "T_POD_POL")
+                                //if (SpPOZ.Exists(x => x.Compon + "_" + x.Pom == stKomp | "#" + x.Compon + "_" + x.Pom == stKomp) == true & stTIP != "T_NAD_POL" & stTIP != "T_POD_POL")
+                                //if (SpPOZ.Exists(x => stKomp.Contains(x.Compon + "_" + x.Pom)) == true & stTIP != "T_NAD_POL" & stTIP != "T_POD_POL")
+                                if (SpPOZ.Exists(x => stKomp == ("#" + x.Compon + "_" + x.Pom)) == true & stTIP != "T_NAD_POL" & stTIP != "T_POD_POL")
                                 {
-                                    string strTextNP = "";
-                                    string strTextPP = "";
-                                    string NOMpoz = "без поз";
-                                    double dDlin = 0;
-                                    double dVisot = 0;
-                                    if ((stDlina == "") == false) { dDlin = Convert.ToDouble(stDlina); }
-                                    if ((stVisot == "") == false) { dVisot = Convert.ToDouble(stVisot); }
-                                    TextPP_NP_POZ(ref  SpPOZ, stKomp, pom, stKEI, stVirez, ref  strTextNP, ref  strTextPP, ref  NOMpoz, dDlin, dVisot, stHtoEto, 1, ref  SpPOZob);
-                                    bref.TextString = strTextNP;
+                                    //Application.ShowAlertDialog("#" + SpPOZ.Find(x => (x.Compon + "_" + x.Pom == stKomp | "#" + x.Compon + "_" + x.Pom == stKomp)).Compon + "_" + SpPOZ.Find(x => (x.Compon + "_" + x.Pom == stKomp | "#" + x.Compon + "_" + x.Pom == stKomp)).Pom);
+                                    bref.TextString = SpPOZ.Find(x => stKomp == ("#" + x.Compon + "_" + x.Pom)).NOMpoz;
+                                    //bref.TextString = SpPOZ.Find(x => (x.Compon == stKomp || "#" + x.Compon == stKomp) & x.Pom == stKompM[1]).NOMpoz;
                                 }
                             }
-#endregion
-#region если в расширеных данных текстового примитива записана ссылка на блок и этот текстовый примитив является текстом под полкой
-                            if (stTIP == "T_POD_POL" && stKomp != "")
+                            #endregion
+                            #region если в расширеных данных текстового примитива записана ссылка на блок и этот текстовый примитив является позицией
+                            else
                             {
-                                string Handl = stKomp;
-                                //if (stLINK != "") { Handl = stLINK; }
-                                //Application.ShowAlertDialog(stTIP + " " + Handl);
-                                BLOKPoHandl(Handl, ref stKomp, ref pom, ref stDlina, ref stVisot, ref stVirez, ref stKEI, ref stHtoEto, pomUDAL, stKompUDAL);
-                                if (SpPOZ.Exists(x => x.Compon == stKomp & x.Pom == pom) == true)
-                                {
-                                    string strTextNP = "";
-                                    string strTextPP = "";
-                                    string NOMpoz = "без поз";
-                                    double dDlin = 0;
-                                    double dVisot = 0;
-                                    if ((stDlina == "") == false) { dDlin = Convert.ToDouble(stDlina); }
-                                    if ((stVisot == "") == false) { dVisot = Convert.ToDouble(stVisot); }
-                                    TextPP_NP_POZ(ref  SpPOZ, stKomp, pom, stKEI, stVirez, ref  strTextNP, ref  strTextPP, ref  NOMpoz, dDlin, dVisot, stHtoEto, 1, ref  SpPOZob);
-                                    bref.TextString = strTextPP;
-                                }
-                            }
 
+                                if (stTIP == "POZIZIA")
+                                {
+                                    string Handl = stKomp;
+                                    BLOKPoHandl(Handl, ref stKomp, ref pom, ref stDlina, ref stVisot, ref stVirez, ref stKEI, ref stHtoEto, pomUDAL, stKompUDAL);
+                                    if (SpPOZ.Exists(x => x.Compon == stKomp & x.Pom == pom) == true) { bref.TextString = SpPOZ.Find(x => x.Compon == stKomp & x.Pom == pom).NOMpoz; }
+                                    if (SpPOZob.Exists(x => x.Ind == stKomp) == true) { bref.TextString = SpPOZob.Find(x => x.Ind == stKomp).NOMpoz; }
+                                }
+                                #endregion
+                                #region если в расширеных данных текстового примитива записана ссылка на блок и этот текстовый примитив является текстом над полкой
+                                if (stTIP == "T_NAD_POL" && stKomp != "")
+                                {
+                                    string Handl = stKomp;
+                                    //if (stLINK != "") { Handl = stLINK; }
+                                    //Application.ShowAlertDialog(stTIP + " " + Handl);
+                                    BLOKPoHandl(Handl, ref stKomp, ref pom, ref stDlina, ref stVisot, ref stVirez, ref stKEI, ref stHtoEto, pomUDAL, stKompUDAL);
+                                    if (SpPOZ.Exists(x => x.Compon == stKomp & x.Pom == pom) == true)
+                                    {
+                                        string strTextNP = "";
+                                        string strTextPP = "";
+                                        string NOMpoz = "без поз";
+                                        double dDlin = 0;
+                                        double dVisot = 0;
+                                        if ((stDlina == "") == false) { dDlin = Convert.ToDouble(stDlina); }
+                                        if ((stVisot == "") == false) { dVisot = Convert.ToDouble(stVisot); }
+                                        TextPP_NP_POZ(ref SpPOZ, stKomp, pom, stKEI, stVirez, ref strTextNP, ref strTextPP, ref NOMpoz, dDlin, dVisot, stHtoEto, 1, ref SpPOZob);
+                                        bref.TextString = strTextNP;
+                                    }
+                                }
+                                #endregion
+                                #region если в расширеных данных текстового примитива записана ссылка на блок и этот текстовый примитив является текстом под полкой
+                                if (stTIP == "T_POD_POL" && stKomp != "")
+                                {
+                                    string Handl = stKomp;
+                                    //if (stLINK != "") { Handl = stLINK; }
+                                    //Application.ShowAlertDialog(stTIP + " " + Handl);
+                                    BLOKPoHandl(Handl, ref stKomp, ref pom, ref stDlina, ref stVisot, ref stVirez, ref stKEI, ref stHtoEto, pomUDAL, stKompUDAL);
+                                    if (SpPOZ.Exists(x => x.Compon == stKomp & x.Pom == pom) == true)
+                                    {
+                                        string strTextNP = "";
+                                        string strTextPP = "";
+                                        string NOMpoz = "без поз";
+                                        double dDlin = 0;
+                                        double dVisot = 0;
+                                        if ((stDlina == "") == false) { dDlin = Convert.ToDouble(stDlina); }
+                                        if ((stVisot == "") == false) { dVisot = Convert.ToDouble(stVisot); }
+                                        TextPP_NP_POZ(ref SpPOZ, stKomp, pom, stKEI, stVirez, ref strTextNP, ref strTextPP, ref NOMpoz, dDlin, dVisot, stHtoEto, 1, ref SpPOZob);
+                                        bref.TextString = strTextPP;
+                                    }
+                                }
+
+                            }
                         }
                     }
+                    Tx.Commit();
                 }
-                Tx.Commit();
-            }
-#endregion
+                #endregion
+            } 
         }//обновить номера позиций
         static void BLOKPoHandl(string Handl, ref string Compon, ref string pom, ref string stDlina, ref string stVisot, ref string stVirez, ref string stKEI, ref string stHtoEto, string pomUDAL, string stKompUDAL)
         {
@@ -7387,7 +7393,7 @@ namespace BLOK
                                 if (Schet == 6) { stKEI = value.Value.ToString(); }
                                 if (Schet == 7) { stHtoEto = value.Value.ToString(); }
                                 if (Schet == 8) { Hozain = value.Value.ToString(); }
-                                if (Schet == 9) { if (Double.TryParse(value.Value.ToString(), out dDlin)) dDlin = Convert.ToDouble(value.Value.ToString()); dDlin = Math.Round(dDlin / 10, 0); dDlin = dDlin * 10; }
+                                if (Schet == 9) { if (Double.TryParse(value.Value.ToString(), out dDlin)) dDlin = Convert.ToDouble(value.Value.ToString()); dDlin = Math.Round(dDlin / 100, 0); dDlin = dDlin * 100; }
                                 if (Schet == 10) { RAB = value.Value.ToString(); }
                                 if (Schet == 11) { LINKb = value.Value.ToString(); }
                                 Schet = Schet + 1;

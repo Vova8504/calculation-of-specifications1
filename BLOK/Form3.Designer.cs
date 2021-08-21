@@ -119,10 +119,9 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.button14 = new System.Windows.Forms.Button();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button13 = new System.Windows.Forms.Button();
             this.label38 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
@@ -135,6 +134,12 @@
             this.textBox21 = new System.Windows.Forms.TextBox();
             this.label36 = new System.Windows.Forms.Label();
             this.textBox22 = new System.Windows.Forms.TextBox();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -163,7 +168,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 602);
+            this.button1.Location = new System.Drawing.Point(11, 597);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(323, 32);
@@ -467,7 +472,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(55, 22);
             this.textBox1.TabIndex = 27;
-            this.textBox1.Text = "100";
+            this.textBox1.Text = "200";
             // 
             // label15
             // 
@@ -1017,6 +1022,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.checkBox4);
             this.tabPage5.Controls.Add(this.button14);
             this.tabPage5.Controls.Add(this.dataGridView3);
             this.tabPage5.Controls.Add(this.button13);
@@ -1031,6 +1037,19 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Обход препядствий";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Checked = true;
+            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox4.Location = new System.Drawing.Point(436, 393);
+            this.checkBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(207, 21);
+            this.checkBox4.TabIndex = 70;
+            this.checkBox4.Text = "настройки из препядствий";
+            this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // button14
             // 
@@ -1049,35 +1068,25 @@
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column11,
-            this.Column12});
+            this.Column12,
+            this.Column13,
+            this.Column14,
+            this.Column15,
+            this.Column16});
             this.dataGridView3.Location = new System.Drawing.Point(433, 37);
             this.dataGridView3.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowHeadersVisible = false;
             this.dataGridView3.RowHeadersWidth = 51;
-            this.dataGridView3.Size = new System.Drawing.Size(133, 165);
+            this.dataGridView3.Size = new System.Drawing.Size(504, 165);
             this.dataGridView3.TabIndex = 5;
-            // 
-            // Column11
-            // 
-            this.Column11.HeaderText = "Тип";
-            this.Column11.MinimumWidth = 6;
-            this.Column11.Name = "Column11";
-            this.Column11.Width = 30;
-            // 
-            // Column12
-            // 
-            this.Column12.HeaderText = "Радиус";
-            this.Column12.MinimumWidth = 6;
-            this.Column12.Name = "Column12";
-            this.Column12.Width = 50;
             // 
             // button13
             // 
             this.button13.Location = new System.Drawing.Point(433, 421);
             this.button13.Margin = new System.Windows.Forms.Padding(4);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(133, 78);
+            this.button13.Size = new System.Drawing.Size(210, 78);
             this.button13.TabIndex = 4;
             this.button13.Text = "Применить препядствия";
             this.button13.UseVisualStyleBackColor = true;
@@ -1170,7 +1179,7 @@
             this.textBox21.Name = "textBox21";
             this.textBox21.Size = new System.Drawing.Size(55, 22);
             this.textBox21.TabIndex = 67;
-            this.textBox21.Text = "0.4";
+            this.textBox21.Text = "0";
             // 
             // label36
             // 
@@ -1190,11 +1199,49 @@
             this.textBox22.TabIndex = 69;
             this.textBox22.Text = "100";
             // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "Тип";
+            this.Column11.MinimumWidth = 6;
+            this.Column11.Name = "Column11";
+            this.Column11.Width = 30;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "коэф выс";
+            this.Column12.MinimumWidth = 6;
+            this.Column12.Name = "Column12";
+            this.Column12.Width = 50;
+            // 
+            // Column13
+            // 
+            this.Column13.HeaderText = "прям уч";
+            this.Column13.MinimumWidth = 6;
+            this.Column13.Name = "Column13";
+            // 
+            // Column14
+            // 
+            this.Column14.HeaderText = "гиб";
+            this.Column14.MinimumWidth = 6;
+            this.Column14.Name = "Column14";
+            // 
+            // Column15
+            // 
+            this.Column15.HeaderText = "зазор";
+            this.Column15.MinimumWidth = 6;
+            this.Column15.Name = "Column15";
+            // 
+            // Column16
+            // 
+            this.Column16.HeaderText = "зазор выреза";
+            this.Column16.MinimumWidth = 6;
+            this.Column16.Name = "Column16";
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1367, 718);
+            this.ClientSize = new System.Drawing.Size(1368, 712);
             this.Controls.Add(this.label36);
             this.Controls.Add(this.textBox22);
             this.Controls.Add(this.checkBox3);
@@ -1389,8 +1436,13 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.TextBox textBox22;
         private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
-        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
     }
 }

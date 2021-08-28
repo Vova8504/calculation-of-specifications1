@@ -148,9 +148,11 @@ namespace BLOK
         public struct TPosrL
         {
             public ObjectId OId;
-            public Point3d TPoint;
+            public Point3d TPoint, TPoint1, TPointZ, MaxPoint, MinPoint;
+            public Point3dCollection SpKoor;
             public string Visot, Komp, Tip, DopDet, LINK;
-            public double NomT;
+            public double NomT, Delt, AngelV, AngelG;
+            public void NDelt(double i) { Delt = i; }
             public void NVisot(string i) { Visot = i; }
             public void NKomp(string i) { Komp = i; }
             public void NTip(string i) { Tip = i; }
@@ -158,8 +160,22 @@ namespace BLOK
             public void NLINK(string i) { LINK = i; }
             public void NNomT(double i) { NomT = i; }
             public void NTPoint(Point3d i) { TPoint = i; }
+            public void NTPoint1(Point3d i) { TPoint1 = i; }
+            public void Dimensions(Point3d max, Point3d min) { MaxPoint = max; MinPoint = min; }
+            public void NTPointZ()
+            {
+                double Dist = TPoint.DistanceTo(TPoint1);
+                Vector3d Vekt1 = TPoint.GetVectorTo(TPoint1) / Dist;
+                TPointZ = TPoint + Vekt1 * (Dist / 2);
+            }
+            public void getAngel()
+            {
+                Vector3d Vekt1 = TPoint.GetVectorTo(TPoint1);
+                AngelV = Vekt1.GetAngleTo(new Vector3d(0, 1, 0));
+                AngelG = Vekt1.GetAngleTo(new Vector3d(1, 0, 0));
+            }
             public void NOId(ObjectId i) { OId = i; }
-
+            public void NSpKoor(Point3dCollection i) { SpKoor = i; }
         }
         public struct Lestn
         {
@@ -223,8 +239,7 @@ namespace BLOK
             Transaction tr = db.TransactionManager.StartTransaction();
             using (tr)
             {
-                Editor ed =
-                    Application.DocumentManager.MdiActiveDocument.Editor;
+                Editor ed =Application.DocumentManager.MdiActiveDocument.Editor;
                 try
                 {
                     // Просим пользователя выбрать примитив
@@ -527,9 +542,9 @@ namespace BLOK
                 if (Perv) SpPoint11.Add(SpPointVN.Last()); else SpPoint12.Add(SpPointVN.Last());
                 if (this.textBox5.Text == "Лес")
                 {
-                    if (SpPoint11.Count > 1) Lest_N_INtr_SP(SpPoint11, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), Convert.ToDouble(this.textBox3.Text), ref tID, false, this.textBox4.Text, RekXvost);
+                    if (SpPoint11.Count > 1) Lest_N_INtr_SP(SpPoint11, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), this.textBox3.Text, ref tID, false, this.textBox4.Text, RekXvost);
                     tID = tID + 1;
-                    if (SpPoint12.Count > 1) Lest_N_INtr_SP(SpPoint12, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), Convert.ToDouble(this.textBox3.Text), ref tID, false, this.textBox4.Text, RekXvost);
+                    if (SpPoint12.Count > 1) Lest_N_INtr_SP(SpPoint12, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), this.textBox3.Text, ref tID, false, this.textBox4.Text, RekXvost);
                 }
                 if (this.textBox5.Text == "Тр")
                 {
@@ -685,7 +700,7 @@ namespace BLOK
                 SpPoint11.Add(SpPointVN.Last());
                 if (this.textBox5.Text == "Лес")
                 {
-                    if (SpPoint11.Count > 1) Lest_N_INtr_SP(SpPoint11, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), Convert.ToDouble(this.textBox3.Text), ref tID, false, this.textBox4.Text, RekXvost);
+                    if (SpPoint11.Count > 1) Lest_N_INtr_SP(SpPoint11, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), this.textBox3.Text, ref tID, false, this.textBox4.Text, RekXvost);
                 }
                 if (this.textBox5.Text == "Тр")
                 {
@@ -999,6 +1014,20 @@ namespace BLOK
                 }
             }
         }//Список связаных обьектов
+        private void button15_Click(object sender, EventArgs e)
+        {
+            List<ObjectId> SpOBJID = new List<ObjectId>();
+            Document doc = Application.DocumentManager.MdiActiveDocument;
+            using (DocumentLock docLock = doc.LockDocument())
+            {
+                Database db = doc.Database;
+                Editor ed = doc.Editor;
+                SpPoint1.Clear();
+                SBORBl_FIND(ref SpPoint1, this.textBox3.Text, ref SpOBJID, ref SpPoint_poln, ref SpPREP);
+                ObjectId[] idarrayEmpty = SpOBJID.ToArray();
+                ed.SetImpliedSelection(idarrayEmpty);
+            }
+        }//Выбрать все связаные прититивы
         private void button7_Click(object sender, EventArgs e)
         {
             List<ObjectId> SpOBJID = new List<ObjectId>();
@@ -1098,6 +1127,20 @@ namespace BLOK
                 foreach (Prepad TP in SpPREP) this.dataGridView3.Rows.Add(TP.Tip, TP.Rad);
             }
         }//Показать список препядствий
+        private void button16_Click(object sender, EventArgs e)
+        {
+         List<Form1.Part> SpPart = new List<Form1.Part>();
+         List<Form1.CWAY> SpCWAY = new List<Form1.CWAY>();
+        string File = this.textBox23.Text;
+            if (System.IO.File.Exists(@File) == true)
+            {
+               Form1.LoadCWinTXT(File, ref SpPart, ref SpCWAY);
+                this.dataGridView4.Rows.Clear();
+                foreach (Form1.CWAY tCW in SpCWAY) this.dataGridView4.Rows.Add(tCW.CWName, tCW.CompName, tCW.ModuleName);
+            }
+            else
+                Application.ShowAlertDialog(File + "-  не найден");
+        }//загрузить трассы из текстового файла
         public TPosrL FTpostr(string TVis, List<TPosrL> SpPoint, string ID)
         {
             string Rez = "";
@@ -1132,7 +1175,7 @@ namespace BLOK
             }
             return Tpoint;
         }//добовление точки в список 
-        public static void Lest_N_INtr_SP(List<TPosrL> SpPointVH, string Tipor, double Hsirin, string Zagal, string Povorot, string Xvost, string Soed, string Adr, double Otstup, double HSag_Hvost, double ID_Les, ref double ID, bool StrTosh,string Room,bool RekXv)
+        public static void Lest_N_INtr_SP(List<TPosrL> SpPointVH, string Tipor, double Hsirin, string Zagal, string Povorot, string Xvost, string Soed, string Adr, double Otstup, double HSag_Hvost, string ID_Les, ref double ID, bool StrTosh,string Room,bool RekXv)
         {
             if (Xvost == "") { Application.ShowAlertDialog("Пустое поле с хвостовиками"); return; }
             Document doc = Application.DocumentManager.MdiActiveDocument;
@@ -1176,27 +1219,23 @@ namespace BLOK
                             {
                                 Vector3d Vek1 = SpPoint.Last().TPoint.GetVectorTo(SpPoint[SpPoint.Count - 2].TPoint);
                                 Vector3d Vek2 = SpPoint.Last().TPoint.GetVectorTo(TPoint.TPoint);
-                                //Application.ShowAlertDialog(Vek1.ToString() + " " + Vek2.ToString());
                                 if ((Vek1.X < 0 & Vek2.Y < 0) | (Vek1.Y < 0 & Vek2.X < 0)) Ugol = 3 * (Math.PI) / 2;
                                 if (Vek1.X > 0 & Vek2.Y > 0 | (Vek1.Y > 0 & Vek2.X > 0)) Ugol = (Math.PI) / 2;
                                 if (Vek1.X < 0 & Vek2.Y > 0 | (Vek1.Y > 0 & Vek2.X < 0)) Ugol = Math.PI;
-                                FPovorot(SpPoint.Last().TPoint, "", "#ПоворотГориз90ЛестУсил" + (Hsirin - 8).ToString(), Ugol, "0", Hsirin, Room, ID_Les.ToString());
+                                FPovorot(SpPoint.Last().TPoint, "", "#ПоворотГориз90ЛестУсил" + (Hsirin - 8).ToString(), Ugol, "0", Hsirin, Room, ID_Les);
                                 double alf1 = Math.Atan(tan);
                                 double alf2 = Math.Atan(tan1);
                                 if (alf1 == 0) alf1 = Math.PI;
                                 if (alf1 == Math.PI) alf1 = 0;
                                 if (alf1 == Math.PI / 2) alf1 = -1 * Math.PI / 2;
                                 if (alf1 == 3 * Math.PI / 2) alf1 = Math.PI / 2;
-                                //Point3d PoslT = polar(SpPoint.Last().TPoint, alf1, alf1, Otstup);
                                 Point3d PoslT = polar1(SpPoint.Last().TPoint, Vek1, Otstup);
                                 TPosrL TPoslT = new TPosrL();
                                 TPoslT.NTPoint(PoslT);
                                 TPoslT.NVisot(SpPoint.Last().Visot);
                                 SpPoint[SpPoint.Count - 1] = TPoslT;
-                                Postr(SpPoint, Hsirin / 2, ID.ToString(), HSag_Hvost, Adr, Xvost, Tipor, Room, ID_Les.ToString(), Zagal, RekXv);
-                                //ID_Les = ID_Les + 1;
+                                Postr(SpPoint, Hsirin / 2, ID.ToString(), HSag_Hvost, Adr, Xvost, Tipor, Room, ID_Les, Zagal, RekXv);
                                 ID = ID + 1;
-                                //Point3d PervT = polar(PostT.TPoint, alf2, alf2, Otstup);
                                 Point3d PervT = polar1(PostT.TPoint, Vek2, Otstup);
                                 TPosrL TPervT = new TPosrL();
                                 TPervT.NTPoint(PervT);
@@ -1208,7 +1247,7 @@ namespace BLOK
                         SpPoint.Add(TPoint);
                     }
                 }
-                if (SpPoint.Count > 1) Postr(SpPoint, Hsirin / 2, ID.ToString(), HSag_Hvost, Adr, Xvost, Tipor, Room, ID_Les.ToString(), Zagal, RekXv);
+                if (SpPoint.Count > 1) Postr(SpPoint, Hsirin / 2, ID.ToString(), HSag_Hvost, Adr, Xvost, Tipor, Room, ID_Les, Zagal, RekXv);
                 double n = 0;
                 if (StrTosh)
                     foreach (TPosrL TT in SpPointVH)
@@ -1216,7 +1255,7 @@ namespace BLOK
                         if (TT.Visot != "")
                         {
                             //KrugIText(TT, SpPoint, TT.NomT.ToString(), ID_Les.ToString());
-                            KrugIText(TT, SpPoint, n.ToString(), ID_Les.ToString());
+                            KrugIText(TT, SpPoint, n.ToString(), ID_Les);
                             n = n + 1;
                         }
                     }
@@ -1880,7 +1919,7 @@ namespace BLOK
                                 SpOBJID.Add(TPostr);
                                 SpID.Add(acSSObj.ObjectId);
                             }
-                            if ((stHtoEto == FIND_N | stHtoEto.Contains(FIND_N + "-")) & stKomp != "CWPoint") { SpID.Add(acSSObj.ObjectId); }
+                            if ((stHtoEto == FIND_N | stHtoEto.Split('-')[0] == FIND_N) & stKomp != "CWPoint") { SpID.Add(acSSObj.ObjectId); }
                             if (stHtoEto == FIND_N & stKomp != "")
                             {
                             TPosrL TPostr1 = new TPosrL();
@@ -1894,7 +1933,7 @@ namespace BLOK
                             if (stKomp == "CWPoint") TPostr1.NTip("Точка построения");
                             SpOBJID_Poln.Add(TPostr1);
                             }
-                            if (stHtoEto.Contains(FIND_N + "-") & stKomp != "")
+                            if (stHtoEto.Split('-')[0] == FIND_N & stKomp != "")
                             {
                             TPosrL TPostr1 = new TPosrL();
                             TPostr1.NKomp(stKomp);
@@ -1989,27 +2028,27 @@ namespace BLOK
                                 Schet = Schet + 1;
                             }
                         }
-                        if (LINK.Contains(FIND_N + "-"))
+                        //if (LINK.Contains(FIND_N + "-"))
+                        if (LINK.Split('-')[0]== FIND_N)
                         {
                             TPosrL TPostr = new TPosrL();
                             TPostr.NKomp("Линия гиба");
                             TPostr.NNomT(0);
                             TPostr.NVisot(dVisot);
-                            //TPostr.NTPoint(PointPostr);
                             TPostr.NLINK(LINK);
                             TPostr.NTip("Линия гиба");
                             TPostr.NOId(acSSObj.ObjectId);
-                            //SpOBJID.Add(TPostr);
                             SpID.Add(acSSObj.ObjectId);
                             SpOBJID_Poln.Add(TPostr);
                         }
                         if (stKomp == "Препядствие") 
                         {
-                            //Application.ShowAlertDialog(gap + "- gap");
                             Prepad NPerep = new Prepad();
                             NPerep.NTip(stRez);
-                            //NPerep.NRad(Convert.ToDouble(stRad));
-                            NPerep.NVisot(Convert.ToDouble(dVisot));
+                                if(double.TryParse(dVisot,out double Visot)) 
+                                NPerep.NVisot(Convert.ToDouble(dVisot));
+                                else 
+                                NPerep.NVisot(0);
                             NPerep.NT1(bref.StartPoint);
                             NPerep.NT2(bref.EndPoint);
                             NPerep.GlDatStr(straight_section, bend_length, straight_section, height_coefficient, gap_cutouts, gap);
@@ -2020,6 +2059,215 @@ namespace BLOK
                 Tx.Commit();
             }
             SpOBJID.Sort(delegate (TPosrL x, TPosrL y) { return x.NomT.CompareTo(y.NomT); });
+        }//поиск блоков по компоненту
+        static public void SBORBl_FIND( string FIND_N, ref List<ObjectId> SpID, ref List<TPosrL> SpOBJID)
+        {
+            int Schet = 0;
+            double NomT = 0;
+            string stKomp = "";
+            string stRez = "";
+            string gap = "";
+            string straight_section = "";
+            string bend_length = "";
+            string height_coefficient = "";
+            string bypass_clearance = "";
+            string gap_cutouts = "";
+            string stRad = "";
+            string stHtoEto = "";
+            string LINK = "";
+            string stTip = "";
+            string strTipSvOb = "";
+            string stPOLnNaim = "";
+            string stDobav = "";
+            string dVisot = "";
+            Point3d PointPostr = new Point3d();
+            Document doc = Application.DocumentManager.MdiActiveDocument;
+            Database db = doc.Database;
+            Editor ed = doc.Editor;
+            TypedValue[] acTypValAr = new TypedValue[11];
+            acTypValAr.SetValue(new TypedValue(-4, "<or"), 0);
+            acTypValAr.SetValue(new TypedValue(0, "INSERT"), 1);
+            acTypValAr.SetValue(new TypedValue(0, "Circle"), 2);
+            acTypValAr.SetValue(new TypedValue(0, "LWPOLYLINE"), 3);
+            acTypValAr.SetValue(new TypedValue(0, "LINE"), 4);
+            acTypValAr.SetValue(new TypedValue(-4, "or>"), 5);
+            acTypValAr.SetValue(new TypedValue(-4, "<or"), 6);
+            acTypValAr.SetValue(new TypedValue(8, "CWAYPoint"), 7);
+            acTypValAr.SetValue(new TypedValue(8, "Насыщение"), 8);
+            acTypValAr.SetValue(new TypedValue(8, "НасыщениеСкрытое"), 9);
+            acTypValAr.SetValue(new TypedValue(-4, "or>"), 10);
+            // создаем фильтр
+            SelectionFilter acSelFtr = new SelectionFilter(acTypValAr);
+            PromptSelectionResult acSSPrompt = ed.SelectAll(acSelFtr);
+            //PromptSelectionOptions pso = new PromptSelectionOptions();
+            //pso.
+            if (acSSPrompt.Status != PromptStatus.OK)
+            {
+                ed.WriteMessage("Нет деталей...");
+                return;
+            }
+            SelectionSet acSSet = acSSPrompt.Value;
+            using (Transaction Tx = db.TransactionManager.StartTransaction())
+            {
+                foreach (SelectedObject acSSObj in acSSet)
+                {
+                    stKomp = "";
+                    stRez = "";
+                    gap = "";
+                    straight_section = "";
+                    bend_length = "";
+                    height_coefficient = "";
+                    bypass_clearance = "";
+                    gap_cutouts = "";
+                    stRad = "";
+                    stHtoEto = "";
+                    stPOLnNaim = "";
+                    stDobav = "";
+                    stTip = "";
+                    LINK = "";
+                    dVisot = "0";
+                    NomT = 0;
+                    Schet = 0;
+                    Entity Obj = Tx.GetObject(acSSObj.ObjectId, OpenMode.ForWrite) as Entity;
+                    //Application.ShowAlertDialog(Obj.GetType().ToString());
+                    if (Obj.GetType() == typeof(BlockReference))
+                    {
+                        BlockReference bref = Tx.GetObject(acSSObj.ObjectId, OpenMode.ForWrite) as BlockReference;
+                        stKomp = bref.Name;
+                        PointPostr = bref.Position;
+                        foreach (ObjectId idAtrRef in bref.AttributeCollection)
+                        {
+                            using (var atrRef = idAtrRef.Open(OpenMode.ForWrite, false, true) as AttributeReference)
+                            {
+                                if (atrRef != null)
+                                {
+                                    if (atrRef.Tag == "Исполнение") { if (Double.TryParse(atrRef.TextString, out NomT)) NomT = Convert.ToDouble(atrRef.TextString); }
+                                    if (atrRef.Tag == "Ссылка") { stHtoEto = atrRef.TextString; }
+                                    if (atrRef.Tag == "Высота_установки") { dVisot = atrRef.TextString; }
+                                    if (atrRef.Tag == "ДопДетали") { stDobav = atrRef.TextString; }
+                                    if (atrRef.Tag == "Что_это") { stTip = atrRef.TextString; }
+                                }
+                            }
+                        }
+                        ResultBuffer buffer = bref.GetXDataForApplication("LAUNCH01");
+                        if (buffer != null)
+                        {
+                            foreach (TypedValue value in buffer)
+                            {
+                                if (Schet == 1) { stKomp = value.Value.ToString(); }
+                                if (Schet == 2) { dVisot = value.Value.ToString(); }
+                                if (Schet == 8) { stHtoEto = value.Value.ToString(); }
+                                if (Schet == 10) { LINK = value.Value.ToString(); }
+                                Schet = Schet + 1;
+                            }
+                        }
+                        if (stHtoEto == FIND_N & stKomp == "CWPoint")
+                        {
+                            TPosrL TPostr = new TPosrL();
+                            TPostr.NKomp(stKomp);
+                            TPostr.NNomT(NomT);
+                            TPostr.NVisot(dVisot);
+                            TPostr.NTPoint(PointPostr);
+                            TPostr.NTip("Точка построения");
+                            SpOBJID.Add(TPostr);
+                            SpID.Add(acSSObj.ObjectId);
+                        }
+                        if ((stHtoEto == FIND_N | stHtoEto.Split('-')[0]== FIND_N) & stKomp != "CWPoint") { SpID.Add(acSSObj.ObjectId); }
+                    }
+                    if (Obj.GetType() == typeof(Circle))
+                    {
+                        Circle bref = Tx.GetObject(acSSObj.ObjectId, OpenMode.ForWrite) as Circle;
+                        PointPostr = bref.Center;
+                        ResultBuffer buffer = bref.GetXDataForApplication("LAUNCH01");
+                        if (buffer != null)
+                        {
+                            foreach (TypedValue value in buffer)
+                            {
+                                if (Schet == 1) { stKomp = value.Value.ToString(); }
+                                if (Schet == 2) { dVisot = value.Value.ToString(); }
+                                if (Schet == 8) { stHtoEto = value.Value.ToString(); }
+                                Schet = Schet + 1;
+                            }
+                        }
+                        if (stHtoEto == FIND_N & stKomp != "")
+                        {
+                            TPosrL TPostr = new TPosrL();
+                            string[] stKompM = stKomp.Split('-');
+                            TPostr.NKomp(stKompM.Last());
+                            TPostr.NNomT(NomT);
+                            TPostr.NVisot(dVisot);
+                            TPostr.NTPoint(PointPostr);
+                            TPostr.NOId(acSSObj.ObjectId);
+                            SpID.Add(acSSObj.ObjectId);
+                        }
+                    }
+                    if (Obj.GetType() == typeof(Polyline))
+                    {
+                        Polyline bref = Tx.GetObject(acSSObj.ObjectId, OpenMode.ForWrite) as Polyline;
+                        ResultBuffer buffer = bref.GetXDataForApplication("LAUNCH01");
+                        if (buffer != null)
+                        {
+                            foreach (TypedValue value in buffer)
+                            {
+                                if (Schet == 10) { stHtoEto = value.Value.ToString(); }
+                                if (Schet == 11) { LINK = value.Value.ToString(); }
+                                if (Schet == 9) { dVisot = value.Value.ToString(); }
+                                if (Schet == 1) { stKomp = value.Value.ToString(); }
+                                Schet = Schet + 1;
+                            }
+                        }
+                        if (stHtoEto == FIND_N & stKomp != "")
+                        {
+                            TPosrL TPostr = new TPosrL();
+                            string[] stKompM = stKomp.Split('-');
+                            TPostr.NKomp(stKompM.Last());
+                            TPostr.NNomT(NomT);
+                            TPostr.NVisot(dVisot);
+                            TPostr.NTPoint(PointPostr);
+                            TPostr.NLINK(LINK);
+                            TPostr.NTip("часть");
+                            TPostr.NOId(acSSObj.ObjectId);
+                            //SpOBJID.Add(TPostr);
+                            SpID.Add(acSSObj.ObjectId);
+                        }
+                    }
+                    if (Obj.GetType() == typeof(Line))
+                    {
+                        Line bref = Tx.GetObject(acSSObj.ObjectId, OpenMode.ForWrite) as Line;
+                        ResultBuffer buffer = bref.GetXDataForApplication("LAUNCH01");
+                        if (buffer != null)
+                        {
+                            foreach (TypedValue value in buffer)
+                            {
+                                if (Schet == 1) { stKomp = value.Value.ToString(); }
+                                if (Schet == 2) { dVisot = value.Value.ToString(); }
+                                if (Schet == 3) { gap = value.Value.ToString(); }
+                                if (Schet == 4) { stRez = value.Value.ToString(); }
+                                if (Schet == 5) { straight_section = value.Value.ToString(); }
+                                if (Schet == 6) { bend_length = value.Value.ToString(); }
+                                if (Schet == 7) { height_coefficient = value.Value.ToString(); }
+                                if (Schet == 8) { bypass_clearance = value.Value.ToString(); }
+                                if (Schet == 9) { gap_cutouts = value.Value.ToString(); }
+                                if (Schet == 11) { LINK = value.Value.ToString(); }
+                                Schet = Schet + 1;
+                            }
+                        }
+                        if (stHtoEto.Split('-')[0] == FIND_N)
+                        {
+                            TPosrL TPostr = new TPosrL();
+                            TPostr.NKomp("Линия гиба");
+                            TPostr.NNomT(0);
+                            TPostr.NVisot(dVisot);
+                            TPostr.NLINK(LINK);
+                            TPostr.NTip("Линия гиба");
+                            TPostr.NOId(acSSObj.ObjectId);
+                            SpID.Add(acSSObj.ObjectId);
+                        }
+                    }
+                }
+                Tx.Commit();
+            }
+            SpOBJID.Sort(delegate (TPosrL x, TPosrL y) { return x.NomT.CompareTo(y.NomT);});
         }//поиск блоков по компоненту
         static public void SBORnBl_FIND(ref List<TPosrL> SpOBJID, string FIND_N, ref List<ObjectId> SpID)
         {
@@ -3391,7 +3639,7 @@ namespace BLOK
             if (SpPoint1.Count > 1)
                 {
                     if (this.textBox5.Text == "Тр") TRub_N_INtr_SP(SpPoint1, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), this.textBox12.Text, this.textBox11.Text, Convert.ToDouble(this.textBox14.Text), Convert.ToDouble(this.textBox3.Text), ref tID, true,  checkBox1.Checked);
-                    if (this.textBox5.Text == "Лес") Lest_N_INtr_SP(SpPoint1, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), Convert.ToDouble(this.textBox3.Text), ref tID, true, this.textBox4.Text, checkBox1.Checked);
+                    if (this.textBox5.Text == "Лес") Lest_N_INtr_SP(SpPoint1, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), this.textBox3.Text, ref tID, true, this.textBox4.Text, checkBox1.Checked);
                 }
                 Database db = doc.Database;
                 Transaction tr1 = db.TransactionManager.StartTransaction();
@@ -3503,9 +3751,9 @@ namespace BLOK
                 }
                 if (this.textBox5.Text == "Лес")
                 {
-                    if (SpPoint11.Count > 1) Lest_N_INtr_SP(SpPoint11, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), Convert.ToDouble(this.textBox3.Text), ref tID, false, this.textBox4.Text, RekXvost);
+                    if (SpPoint11.Count > 1) Lest_N_INtr_SP(SpPoint11, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), this.textBox3.Text, ref tID, false, this.textBox4.Text, RekXvost);
                     tID = tID + 1;
-                    if (SpPoint12.Count > 1) Lest_N_INtr_SP(SpPoint12, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), Convert.ToDouble(this.textBox3.Text), ref tID, false, this.textBox4.Text, RekXvost);
+                    if (SpPoint12.Count > 1) Lest_N_INtr_SP(SpPoint12, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), this.textBox3.Text, ref tID, false, this.textBox4.Text, RekXvost);
                     //if (SpPoint11.Count > 1) Lest_N_INtr_SP(SpPoint11, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), Convert.ToDouble(this.textBox3.Text), ref tID, true);
                     //tID = tID + 1;
                     //if (SpPoint12.Count > 1) Lest_N_INtr_SP(SpPoint12, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), Convert.ToDouble(this.textBox3.Text), ref tID, true);
@@ -3645,7 +3893,7 @@ namespace BLOK
                 }
                 if (this.textBox5.Text == "Лес")
                 {
-                    if (SpPointVN.Count > 1) Lest_N_INtr_SP(SpPointVN, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), Convert.ToDouble(this.textBox3.Text), ref tID, false, this.textBox4.Text, checkBox1.Checked);
+                    if (SpPointVN.Count > 1) Lest_N_INtr_SP(SpPointVN, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), this.textBox3.Text, ref tID, false, this.textBox4.Text, checkBox1.Checked);
                     //tID = tID + 1;
                     //if (SpPoint12.Count > 1) Lest_N_INtr_SP(SpPoint12, this.label14.Text, Hsirin, this.textBox5.Text, "", this.textBox15.Text, this.textBox16.Text, "", 400 + Hsirin / 2, Convert.ToDouble(this.textBox13.Text), Convert.ToDouble(this.textBox3.Text), ref tID, false);
                 }
@@ -3845,7 +4093,7 @@ namespace BLOK
             List<List<TPosrL>> SpSpPoint = new List<List<TPosrL>>();
             List<ObjectId> SpOBJID = new List<ObjectId>();
             double Steep_Shank = GlCWEY.HsagXv;
-            double ID_CWEY = GlCWEY.IDCWey;
+            string ID_CWEY = GlCWEY.IDCWey.ToString();
             string Find = GlCWEY.Name;
             string chapter_Sp = GlCWEY.RazdelSP;
             string Component = GlCWEY.Component;
@@ -4017,5 +4265,7 @@ namespace BLOK
             }
 
         }
+
+
     }
 }

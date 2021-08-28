@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -107,6 +107,7 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button36 = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.textBox11 = new System.Windows.Forms.TextBox();
@@ -138,6 +139,9 @@
             this.Column33 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button16 = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.button35 = new System.Windows.Forms.Button();
+            this.label38 = new System.Windows.Forms.Label();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.textBox29 = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
             this.radioButton9 = new System.Windows.Forms.RadioButton();
@@ -234,6 +238,9 @@
             this.label13 = new System.Windows.Forms.Label();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.button37 = new System.Windows.Forms.Button();
+            this.button38 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -437,15 +444,15 @@
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.NullValue = null;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle25.NullValue = null;
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle25;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.POZ,
@@ -456,14 +463,14 @@
             this.KEI,
             this.Razd,
             this.UslNaim});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle26;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridView1.Location = new System.Drawing.Point(8, 60);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
@@ -682,15 +689,15 @@
             this.dataGridView4.AllowUserToResizeColumns = false;
             this.dataGridView4.AllowUserToResizeRows = false;
             this.dataGridView4.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.NullValue = null;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView4.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle27.NullValue = null;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView4.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle27;
             this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView4.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn2,
@@ -703,14 +710,14 @@
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView4.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView4.DefaultCellStyle = dataGridViewCellStyle28;
             this.dataGridView4.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridView4.Location = new System.Drawing.Point(4, 59);
             this.dataGridView4.Margin = new System.Windows.Forms.Padding(4);
@@ -1042,6 +1049,8 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.button37);
+            this.tabPage4.Controls.Add(this.button36);
             this.tabPage4.Controls.Add(this.checkBox2);
             this.tabPage4.Controls.Add(this.checkBox1);
             this.tabPage4.Controls.Add(this.textBox11);
@@ -1066,12 +1075,23 @@
             this.tabPage4.Text = "Детали полилиниями";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // button36
+            // 
+            this.button36.Location = new System.Drawing.Point(589, 236);
+            this.button36.Margin = new System.Windows.Forms.Padding(4);
+            this.button36.Name = "button36";
+            this.button36.Size = new System.Drawing.Size(449, 38);
+            this.button36.TabIndex = 47;
+            this.button36.Text = "Найти";
+            this.button36.UseVisualStyleBackColor = true;
+            this.button36.Click += new System.EventHandler(this.button36_Click);
+            // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.Checked = true;
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(595, 519);
+            this.checkBox2.Location = new System.Drawing.Point(346, 536);
             this.checkBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(226, 21);
@@ -1084,7 +1104,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(595, 494);
+            this.checkBox1.Location = new System.Drawing.Point(39, 536);
             this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(301, 21);
@@ -1094,7 +1114,7 @@
             // 
             // textBox11
             // 
-            this.textBox11.Location = new System.Drawing.Point(589, 455);
+            this.textBox11.Location = new System.Drawing.Point(587, 524);
             this.textBox11.Margin = new System.Windows.Forms.Padding(4);
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(449, 22);
@@ -1103,7 +1123,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(588, 434);
+            this.label14.Location = new System.Drawing.Point(586, 503);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(261, 17);
@@ -1112,7 +1132,7 @@
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(589, 398);
+            this.textBox6.Location = new System.Drawing.Point(587, 467);
             this.textBox6.Margin = new System.Windows.Forms.Padding(4);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(449, 22);
@@ -1121,7 +1141,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(588, 377);
+            this.label11.Location = new System.Drawing.Point(586, 446);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(253, 17);
@@ -1130,7 +1150,7 @@
             // 
             // button27
             // 
-            this.button27.Location = new System.Drawing.Point(591, 327);
+            this.button27.Location = new System.Drawing.Point(591, 381);
             this.button27.Margin = new System.Windows.Forms.Padding(4);
             this.button27.Name = "button27";
             this.button27.Size = new System.Drawing.Size(449, 38);
@@ -1141,7 +1161,7 @@
             // 
             // button26
             // 
-            this.button26.Location = new System.Drawing.Point(591, 282);
+            this.button26.Location = new System.Drawing.Point(591, 336);
             this.button26.Margin = new System.Windows.Forms.Padding(4);
             this.button26.Name = "button26";
             this.button26.Size = new System.Drawing.Size(449, 38);
@@ -1164,7 +1184,8 @@
             this.dataGridView9.Name = "dataGridView9";
             this.dataGridView9.RowHeadersVisible = false;
             this.dataGridView9.RowHeadersWidth = 51;
-            this.dataGridView9.Size = new System.Drawing.Size(449, 260);
+            this.dataGridView9.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView9.Size = new System.Drawing.Size(449, 216);
             this.dataGridView9.TabIndex = 38;
             // 
             // Column27
@@ -1354,6 +1375,10 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.checkBox8);
+            this.tabPage5.Controls.Add(this.button35);
+            this.tabPage5.Controls.Add(this.label38);
+            this.tabPage5.Controls.Add(this.checkBox7);
             this.tabPage5.Controls.Add(this.textBox29);
             this.tabPage5.Controls.Add(this.label32);
             this.tabPage5.Controls.Add(this.radioButton9);
@@ -1381,6 +1406,36 @@
             this.tabPage5.Text = "из TRIBON";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // button35
+            // 
+            this.button35.Location = new System.Drawing.Point(28, 529);
+            this.button35.Margin = new System.Windows.Forms.Padding(4);
+            this.button35.Name = "button35";
+            this.button35.Size = new System.Drawing.Size(205, 34);
+            this.button35.TabIndex = 28;
+            this.button35.Text = "Построить выделеную";
+            this.button35.UseVisualStyleBackColor = true;
+            this.button35.Click += new System.EventHandler(this.button35_Click);
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(456, 334);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(240, 17);
+            this.label38.TabIndex = 27;
+            this.label38.Text = "Добавление к высоте хвостовиков:";
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(454, 529);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(148, 21);
+            this.checkBox7.TabIndex = 26;
+            this.checkBox7.Text = "Обрезать по виду";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            // 
             // textBox29
             // 
             this.textBox29.Location = new System.Drawing.Point(274, 370);
@@ -1402,6 +1457,7 @@
             // radioButton9
             // 
             this.radioButton9.AutoSize = true;
+            this.radioButton9.Checked = true;
             this.radioButton9.Location = new System.Drawing.Point(978, 632);
             this.radioButton9.Name = "radioButton9";
             this.radioButton9.Size = new System.Drawing.Size(37, 21);
@@ -1413,12 +1469,10 @@
             // radioButton8
             // 
             this.radioButton8.AutoSize = true;
-            this.radioButton8.Checked = true;
             this.radioButton8.Location = new System.Drawing.Point(935, 632);
             this.radioButton8.Name = "radioButton8";
             this.radioButton8.Size = new System.Drawing.Size(37, 21);
             this.radioButton8.TabIndex = 22;
-            this.radioButton8.TabStop = true;
             this.radioButton8.Text = "2";
             this.radioButton8.UseVisualStyleBackColor = true;
             // 
@@ -1528,7 +1582,7 @@
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(205, 34);
             this.button23.TabIndex = 7;
-            this.button23.Text = "Построить";
+            this.button23.Text = "Построить все";
             this.button23.UseVisualStyleBackColor = true;
             this.button23.Click += new System.EventHandler(this.button23_Click);
             // 
@@ -1567,7 +1621,7 @@
             this.dataGridView8.RowHeadersVisible = false;
             this.dataGridView8.RowHeadersWidth = 51;
             this.dataGridView8.RowTemplate.Height = 24;
-            this.dataGridView8.Size = new System.Drawing.Size(528, 342);
+            this.dataGridView8.Size = new System.Drawing.Size(528, 309);
             this.dataGridView8.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn9
@@ -2157,6 +2211,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button38);
             this.groupBox1.Controls.Add(this.label29);
             this.groupBox1.Controls.Add(this.textBox26);
             this.groupBox1.Controls.Add(this.pictureBox2);
@@ -2172,7 +2227,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(607, 260);
+            this.groupBox1.Size = new System.Drawing.Size(607, 277);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Подписи гибов";
@@ -2180,7 +2235,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(8, 135);
+            this.label29.Location = new System.Drawing.Point(8, 125);
             this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(73, 17);
@@ -2189,7 +2244,7 @@
             // 
             // textBox26
             // 
-            this.textBox26.Location = new System.Drawing.Point(87, 132);
+            this.textBox26.Location = new System.Drawing.Point(87, 122);
             this.textBox26.Margin = new System.Windows.Forms.Padding(4);
             this.textBox26.Name = "textBox26";
             this.textBox26.Size = new System.Drawing.Size(132, 22);
@@ -2203,7 +2258,7 @@
             this.pictureBox2.Location = new System.Drawing.Point(237, 26);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(351, 217);
+            this.pictureBox2.Size = new System.Drawing.Size(351, 243);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
@@ -2211,7 +2266,7 @@
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(11, 161);
+            this.checkBox4.Location = new System.Drawing.Point(11, 151);
             this.checkBox4.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(196, 21);
@@ -2221,10 +2276,10 @@
             // 
             // button29
             // 
-            this.button29.Location = new System.Drawing.Point(8, 190);
+            this.button29.Location = new System.Drawing.Point(9, 171);
             this.button29.Margin = new System.Windows.Forms.Padding(4);
             this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(220, 54);
+            this.button29.Size = new System.Drawing.Size(220, 40);
             this.button29.TabIndex = 0;
             this.button29.Text = "Подписать высоту гибов";
             this.button29.UseVisualStyleBackColor = true;
@@ -2233,7 +2288,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(8, 105);
+            this.label19.Location = new System.Drawing.Point(8, 95);
             this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(21, 17);
@@ -2242,7 +2297,7 @@
             // 
             // textBox15
             // 
-            this.textBox15.Location = new System.Drawing.Point(87, 36);
+            this.textBox15.Location = new System.Drawing.Point(87, 26);
             this.textBox15.Margin = new System.Windows.Forms.Padding(4);
             this.textBox15.Name = "textBox15";
             this.textBox15.Size = new System.Drawing.Size(132, 22);
@@ -2251,7 +2306,7 @@
             // 
             // textBox17
             // 
-            this.textBox17.Location = new System.Drawing.Point(87, 100);
+            this.textBox17.Location = new System.Drawing.Point(87, 90);
             this.textBox17.Margin = new System.Windows.Forms.Padding(4);
             this.textBox17.Name = "textBox17";
             this.textBox17.Size = new System.Drawing.Size(132, 22);
@@ -2261,7 +2316,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(8, 41);
+            this.label17.Location = new System.Drawing.Point(8, 31);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(21, 17);
@@ -2271,7 +2326,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(8, 73);
+            this.label18.Location = new System.Drawing.Point(8, 63);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(21, 17);
@@ -2280,7 +2335,7 @@
             // 
             // textBox16
             // 
-            this.textBox16.Location = new System.Drawing.Point(87, 68);
+            this.textBox16.Location = new System.Drawing.Point(87, 58);
             this.textBox16.Margin = new System.Windows.Forms.Padding(4);
             this.textBox16.Name = "textBox16";
             this.textBox16.Size = new System.Drawing.Size(132, 22);
@@ -2385,6 +2440,38 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 11;
             this.pictureBox1.TabStop = false;
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(454, 556);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(129, 21);
+            this.checkBox8.TabIndex = 29;
+            this.checkBox8.Text = "Имя из модели";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
+            // button37
+            // 
+            this.button37.Location = new System.Drawing.Point(590, 282);
+            this.button37.Margin = new System.Windows.Forms.Padding(4);
+            this.button37.Name = "button37";
+            this.button37.Size = new System.Drawing.Size(449, 38);
+            this.button37.TabIndex = 48;
+            this.button37.Text = "Перестоить выделеные лестницы";
+            this.button37.UseVisualStyleBackColor = true;
+            this.button37.Click += new System.EventHandler(this.button37_Click);
+            // 
+            // button38
+            // 
+            this.button38.Location = new System.Drawing.Point(9, 219);
+            this.button38.Margin = new System.Windows.Forms.Padding(4);
+            this.button38.Name = "button38";
+            this.button38.Size = new System.Drawing.Size(220, 50);
+            this.button38.TabIndex = 11;
+            this.button38.Text = "Подписать высоту гибов отдельной трассы";
+            this.button38.UseVisualStyleBackColor = true;
+            this.button38.Click += new System.EventHandler(this.button38_Click);
             // 
             // Form1
             // 
@@ -2669,5 +2756,12 @@
         private System.Windows.Forms.TextBox textBox34;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.TextBox textBox33;
+        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Button button35;
+        private System.Windows.Forms.Button button36;
+        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.Button button37;
+        private System.Windows.Forms.Button button38;
     }
 }

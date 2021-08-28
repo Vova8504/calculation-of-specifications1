@@ -483,6 +483,7 @@ namespace BLOK
         }//Создание списков деталей изображенных полилиниями
         static public void SBORBlDet(ref List<POZIZIA> SpPOZ, List<PLOSpr> SPPal)
         {
+            string KEY = "";
             string stKomp = "";
             string stPom = "";
             string stRazd = "";
@@ -503,12 +504,13 @@ namespace BLOK
             Document doc = Application.DocumentManager.MdiActiveDocument;
             Database db = doc.Database;
             Editor ed = doc.Editor;
-            TypedValue[] acTypValAr = new TypedValue[5];
+            TypedValue[] acTypValAr = new TypedValue[6];
             acTypValAr.SetValue(new TypedValue(0, "INSERT"), 0);
             acTypValAr.SetValue(new TypedValue(-4, "<or"), 1);
             acTypValAr.SetValue(new TypedValue(8, "Насыщение"), 2);
             acTypValAr.SetValue(new TypedValue(8, "НасыщениеСкрытое"), 3);
-            acTypValAr.SetValue(new TypedValue(-4, "or>"), 4);
+            acTypValAr.SetValue(new TypedValue(8, "CWAYPoint"), 4);
+            acTypValAr.SetValue(new TypedValue(-4, "or>"), 5);
             // создаем фильтр
             SelectionFilter acSelFtr = new SelectionFilter(acTypValAr);
             PromptSelectionResult acSSPrompt = ed.SelectAll(acSelFtr);
@@ -522,6 +524,7 @@ namespace BLOK
             {
                 foreach (SelectedObject acSSObj in acSSet)
                 {
+                    KEY = "";
                     stKomp = "";
                     stPom = "";
                     stRazd = "";
@@ -538,6 +541,7 @@ namespace BLOK
                     dDlin = 0;
                     BlockReference bref = Tx.GetObject(acSSObj.ObjectId, OpenMode.ForWrite) as BlockReference;
                     BAZt = bref.Position;
+                    KEY = bref.Name;
                     stKomp = bref.Name;
                     if (bref.IsDynamicBlock)
                     {
@@ -558,7 +562,9 @@ namespace BLOK
                                     if (atrRef.Tag == "Помещение") { stPom = atrRef.TextString; }
                                     if (atrRef.Tag == "Раздел_спецификации") { stRazd = atrRef.TextString; }
                                     if (atrRef.Tag == "КЕИ") { stKEI = atrRef.TextString; }
-                                    if (atrRef.Tag == "Высота_установки") { dVisot = Convert.ToDouble(atrRef.TextString); }
+                                    if (atrRef.Tag == "Высота_установки") {if(double.TryParse(atrRef.TextString,out dVisot)) dVisot = Convert.ToDouble(atrRef.TextString); }
+                                    if (atrRef.Tag == "Ссылка") { LINK = atrRef.TextString; }
+                                    if (atrRef.Tag == "Что_это") { stHtoEto = atrRef.TextString; }
                                 }
                             }
                         }
@@ -597,7 +603,24 @@ namespace BLOK
                                 Schet = Schet + 1;
                             }
                         }
+                        foreach (ObjectId idAtrRef in bref.AttributeCollection)
+                        {
+                            using (var atrRef = idAtrRef.Open(OpenMode.ForWrite, false, true) as AttributeReference)
+                            {
+                                if (atrRef != null)
+                                {
+                                    if (atrRef.Tag == "Исполнение") { stKomp = atrRef.TextString; }
+                                    if (atrRef.Tag == "Помещение") { stPom = atrRef.TextString; }
+                                    if (atrRef.Tag == "Раздел_спецификации") { stRazd = atrRef.TextString; }
+                                    if (atrRef.Tag == "КЕИ") { stKEI = atrRef.TextString; }
+                                    if (atrRef.Tag == "Высота_установки") { dVisot = Convert.ToDouble(atrRef.TextString); }
+                                    if (atrRef.Tag == "Ссылка") { LINK = atrRef.TextString; }
+                                    if (atrRef.Tag == "Что_это") { stHtoEto = atrRef.TextString; }
+                                }
+                            }
+                        }
                     }
+                    if (KEY == "CWPoint") stHtoEto = KEY;
                     POZIZIA tPOZ = new POZIZIA();
                     tPOZ.NCompon(stKomp);
                     tPOZ.NVisot(dVisot);
@@ -614,7 +637,8 @@ namespace BLOK
                     tPOZ.NHtoEto(stHtoEto);
                     tPOZ.NHandl(bref.Handle.ToString());
                     tPOZ.NID(ID);
-                    if ((stKomp == "") == false && (stKEI == "") == false) SpPOZ.Add(tPOZ);
+                    //if ((stKomp == "") == false && (stKEI == "") == false) SpPOZ.Add(tPOZ);
+                    if ((stKomp == "") == false ) SpPOZ.Add(tPOZ);
                     SpDOP_POZ.Clear();
                 }
                 Tx.Commit();

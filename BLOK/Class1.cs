@@ -613,7 +613,7 @@ namespace BLOK
                                     if (atrRef.Tag == "Помещение") { stPom = atrRef.TextString; }
                                     if (atrRef.Tag == "Раздел_спецификации") { stRazd = atrRef.TextString; }
                                     if (atrRef.Tag == "КЕИ") { stKEI = atrRef.TextString; }
-                                    if (atrRef.Tag == "Высота_установки") { dVisot = Convert.ToDouble(atrRef.TextString); }
+                                    if (atrRef.Tag == "Высота_установки") {if(double.TryParse(atrRef.TextString,out dVisot)) dVisot = Convert.ToDouble(atrRef.TextString); }
                                     if (atrRef.Tag == "Ссылка") { LINK = atrRef.TextString; }
                                     if (atrRef.Tag == "Что_это") { stHtoEto = atrRef.TextString; }
                                 }
@@ -1316,7 +1316,6 @@ namespace BLOK
                 izmPOZ.NDobav(izmPOZ.Dobav + "!" + tPOZ.Dobav);
                 if (tPOZ.RAB != "") izmPOZ.NRAB(izmPOZ.RAB + "," + tPOZ.RAB);
                 if (tPOZ.Hozain != "") izmPOZ.NHozain(izmPOZ.Hozain + "," + tPOZ.Hozain);
-                //if (tPOZ.CompHozain != "") izmPOZ.NCompHozain(izmPOZ.CompHozain + "," + tPOZ.CompHozain);
                 if (tPOZ.Prim != "" & tPOZ.Prim != null) izmPOZ.NPrim(izmPOZ.Prim + "," + tPOZ.Prim);
                 SpPOZ.Add(izmPOZ);
             }

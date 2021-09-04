@@ -106,6 +106,25 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label41 = new System.Windows.Forms.Label();
+            this.textBox26 = new System.Windows.Forms.TextBox();
+            this.button17 = new System.Windows.Forms.Button();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.textBox25 = new System.Windows.Forms.TextBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.textBox24 = new System.Windows.Forms.TextBox();
+            this.textBox23 = new System.Windows.Forms.TextBox();
+            this.button16 = new System.Windows.Forms.Button();
+            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button8 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -141,12 +160,6 @@
             this.label36 = new System.Windows.Forms.Label();
             this.textBox22 = new System.Windows.Forms.TextBox();
             this.button15 = new System.Windows.Forms.Button();
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
-            this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button16 = new System.Windows.Forms.Button();
-            this.textBox23 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -154,6 +167,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -162,7 +176,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -756,7 +769,7 @@
             this.textBox17.Name = "textBox17";
             this.textBox17.Size = new System.Drawing.Size(55, 22);
             this.textBox17.TabIndex = 54;
-            this.textBox17.Text = "50";
+            this.textBox17.Text = "0";
             // 
             // label27
             // 
@@ -873,6 +886,19 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label41);
+            this.tabPage2.Controls.Add(this.textBox26);
+            this.tabPage2.Controls.Add(this.button17);
+            this.tabPage2.Controls.Add(this.checkBox7);
+            this.tabPage2.Controls.Add(this.checkBox6);
+            this.tabPage2.Controls.Add(this.checkBox5);
+            this.tabPage2.Controls.Add(this.label40);
+            this.tabPage2.Controls.Add(this.textBox25);
+            this.tabPage2.Controls.Add(this.label39);
+            this.tabPage2.Controls.Add(this.radioButton3);
+            this.tabPage2.Controls.Add(this.radioButton2);
+            this.tabPage2.Controls.Add(this.radioButton1);
+            this.tabPage2.Controls.Add(this.textBox24);
             this.tabPage2.Controls.Add(this.textBox23);
             this.tabPage2.Controls.Add(this.button16);
             this.tabPage2.Controls.Add(this.dataGridView4);
@@ -888,6 +914,194 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Список точек";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(748, 367);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(122, 17);
+            this.label41.TabIndex = 83;
+            this.label41.Text = "Добавление к хв:";
+            // 
+            // textBox26
+            // 
+            this.textBox26.Location = new System.Drawing.Point(879, 367);
+            this.textBox26.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox26.Name = "textBox26";
+            this.textBox26.Size = new System.Drawing.Size(34, 22);
+            this.textBox26.TabIndex = 82;
+            this.textBox26.Text = "0";
+            // 
+            // button17
+            // 
+            this.button17.Location = new System.Drawing.Point(584, 477);
+            this.button17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(402, 32);
+            this.button17.TabIndex = 81;
+            this.button17.Text = "Перестроить вместо выбранной";
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(584, 452);
+            this.checkBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(129, 21);
+            this.checkBox7.TabIndex = 80;
+            this.checkBox7.Text = "Имя из модели";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(584, 422);
+            this.checkBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(148, 21);
+            this.checkBox6.TabIndex = 79;
+            this.checkBox6.Text = "Обрезать по виду";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(584, 393);
+            this.checkBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(152, 21);
+            this.checkBox5.TabIndex = 78;
+            this.checkBox5.Text = "Учитывать модуль";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(581, 365);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(109, 17);
+            this.label40.TabIndex = 77;
+            this.label40.Text = "Глубина среза:";
+            // 
+            // textBox25
+            // 
+            this.textBox25.Location = new System.Drawing.Point(696, 362);
+            this.textBox25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox25.Name = "textBox25";
+            this.textBox25.Size = new System.Drawing.Size(34, 22);
+            this.textBox25.TabIndex = 76;
+            this.textBox25.Text = "1000";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(581, 332);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(246, 17);
+            this.label39.TabIndex = 75;
+            this.label39.Text = "Как оприделять вылет хвостовиков:";
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Checked = true;
+            this.radioButton3.Location = new System.Drawing.Point(919, 332);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(37, 21);
+            this.radioButton3.TabIndex = 74;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "3";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(876, 332);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(37, 21);
+            this.radioButton2.TabIndex = 73;
+            this.radioButton2.Text = "2";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(833, 330);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(37, 21);
+            this.radioButton1.TabIndex = 72;
+            this.radioButton1.Text = "1";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // textBox24
+            // 
+            this.textBox24.Location = new System.Drawing.Point(581, 12);
+            this.textBox24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox24.Name = "textBox24";
+            this.textBox24.Size = new System.Drawing.Size(123, 22);
+            this.textBox24.TabIndex = 71;
+            this.textBox24.TextChanged += new System.EventHandler(this.textBox24_TextChanged);
+            // 
+            // textBox23
+            // 
+            this.textBox23.Location = new System.Drawing.Point(744, 292);
+            this.textBox23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox23.Name = "textBox23";
+            this.textBox23.Size = new System.Drawing.Size(242, 22);
+            this.textBox23.TabIndex = 71;
+            this.textBox23.Text = "C:\\МАРШРУТ\\Tempaaaaa.txt";
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(581, 287);
+            this.button16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(157, 32);
+            this.button16.TabIndex = 38;
+            this.button16.Text = "Загрузить из TXT";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
+            // dataGridView4
+            // 
+            this.dataGridView4.AllowUserToAddRows = false;
+            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView4.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column17,
+            this.Column18,
+            this.Column19});
+            this.dataGridView4.Location = new System.Drawing.Point(581, 39);
+            this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.RowHeadersVisible = false;
+            this.dataGridView4.RowHeadersWidth = 51;
+            this.dataGridView4.RowTemplate.Height = 24;
+            this.dataGridView4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView4.Size = new System.Drawing.Size(405, 235);
+            this.dataGridView4.TabIndex = 37;
+            // 
+            // Column17
+            // 
+            this.Column17.HeaderText = "CW name";
+            this.Column17.MinimumWidth = 6;
+            this.Column17.Name = "Column17";
+            this.Column17.Width = 125;
+            // 
+            // Column18
+            // 
+            this.Column18.HeaderText = "Comp name";
+            this.Column18.MinimumWidth = 6;
+            this.Column18.Name = "Column18";
+            this.Column18.Width = 125;
+            // 
+            // Column19
+            // 
+            this.Column19.HeaderText = "modul";
+            this.Column19.MinimumWidth = 6;
+            this.Column19.Name = "Column19";
+            this.Column19.Width = 125;
             // 
             // button8
             // 
@@ -1263,64 +1477,6 @@
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
-            // dataGridView4
-            // 
-            this.dataGridView4.AllowUserToAddRows = false;
-            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column17,
-            this.Column18,
-            this.Column19});
-            this.dataGridView4.Location = new System.Drawing.Point(581, 28);
-            this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.RowHeadersVisible = false;
-            this.dataGridView4.RowHeadersWidth = 51;
-            this.dataGridView4.RowTemplate.Height = 24;
-            this.dataGridView4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView4.Size = new System.Drawing.Size(405, 339);
-            this.dataGridView4.TabIndex = 37;
-            // 
-            // Column17
-            // 
-            this.Column17.HeaderText = "CW name";
-            this.Column17.MinimumWidth = 6;
-            this.Column17.Name = "Column17";
-            this.Column17.Width = 125;
-            // 
-            // Column18
-            // 
-            this.Column18.HeaderText = "Comp name";
-            this.Column18.MinimumWidth = 6;
-            this.Column18.Name = "Column18";
-            this.Column18.Width = 125;
-            // 
-            // Column19
-            // 
-            this.Column19.HeaderText = "modul";
-            this.Column19.MinimumWidth = 6;
-            this.Column19.Name = "Column19";
-            this.Column19.Width = 125;
-            // 
-            // button16
-            // 
-            this.button16.Location = new System.Drawing.Point(581, 382);
-            this.button16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(157, 32);
-            this.button16.TabIndex = 38;
-            this.button16.Text = "Загрузить из TXT";
-            this.button16.UseVisualStyleBackColor = true;
-            this.button16.Click += new System.EventHandler(this.button16_Click);
-            // 
-            // textBox23
-            // 
-            this.textBox23.Location = new System.Drawing.Point(744, 387);
-            this.textBox23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox23.Name = "textBox23";
-            this.textBox23.Size = new System.Drawing.Size(242, 22);
-            this.textBox23.TabIndex = 71;
-            this.textBox23.Text = "C:\\МАРШРУТ\\Tempaaaaa.txt";
-            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1400,6 +1556,7 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
@@ -1411,7 +1568,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1537,5 +1693,18 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column17;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column18;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column19;
+        private System.Windows.Forms.TextBox textBox24;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.TextBox textBox25;
+        private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.TextBox textBox26;
     }
 }

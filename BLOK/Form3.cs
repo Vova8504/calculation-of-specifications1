@@ -152,7 +152,7 @@ namespace BLOK
             public ObjectId OId;
             public Point3d TPoint, TPoint1, TPointZ, MaxPoint, MinPoint;
             public Point3dCollection SpKoor;
-            public string Visot, Komp, Tip, DopDet, LINK;
+            public string Visot, Komp, Tip, DopDet, LINK ,NameCWAY;
             public double NomT, Delt, AngelV, AngelG;
             public void NDelt(double i) { Delt = i; }
             public void NVisot(string i) { Visot = i; }
@@ -178,6 +178,7 @@ namespace BLOK
             }
             public void NOId(ObjectId i) { OId = i; }
             public void NSpKoor(Point3dCollection i) { SpKoor = i; }
+            public void NNameCWAY(string nameCWAY) { NameCWAY = nameCWAY; }
         }
         public struct Lestn
         {
@@ -4377,17 +4378,17 @@ namespace BLOK
         }
         private void textBox24_TextChanged(object sender, EventArgs e)
         {
-            List<CWAY> FSpPOZ = new List<CWAY>();
+            List<Form1.CWAY> FSpPOZ = new List<Form1.CWAY>();
             if (this.textBox24.Text != "")
             {
-                FSpPOZ = SpCWAY.FindAll(x => x.CWName.Contains(this.textBox24.Text));
+                FSpPOZ = SpCWAY_TR.FindAll(x => x.CWName.Contains(this.textBox24.Text));
                 this.dataGridView4.Rows.Clear();
-                foreach (CWAY tCW in FSpPOZ) this.dataGridView4.Rows.Add(tCW.CWName, tCW.CompName, tCW.ModuleName);
+                foreach (Form1.CWAY tCW in FSpPOZ) this.dataGridView4.Rows.Add(tCW.CWName, tCW.CompName, tCW.ModuleName);
             }
             else
             {
                 this.dataGridView4.Rows.Clear();
-                foreach (CWAY tCW in SpCWAY) this.dataGridView4.Rows.Add(tCW.CWName, tCW.CompName, tCW.ModuleName);
+                foreach (Form1.CWAY tCW in SpCWAY_TR) this.dataGridView4.Rows.Add(tCW.CWName, tCW.CompName, tCW.ModuleName);
             }
         }
 
